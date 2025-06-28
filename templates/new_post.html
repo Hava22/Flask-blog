@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}New Post - Flask Blog{% endblock %}
+{% block content %}
+<h2>Create New Post</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">
+    {{ form.title.label }}
+    {{ form.title(class="form-control") }}
+    {% for e in form.title.errors %}
+      <small class="text-danger">{{ e }}</small>
+    {% endfor %}
+  </div>
+  <div class="mb-3">
+    {{ form.body.label }}
+    {{ form.body(class="form-control", id="markdown-input") }}
+    {% for e in form.body.errors %}
+      <small class="text-danger">{{ e }}</small>
+    {% endfor %}
+  </div>
+
+  <h5>Live Preview</h5>
+  <div id="preview" class="markdown-preview"></div>
+
+  <button type="submit" class="btn btn-success mt-3">{{ form.submit.label }}</button>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+  const input = document.getElementById('markdown-input');
+  const preview = document.getElementById('preview');
+
+  function updatePreview() {
+    const markdownText = input.value;
+    preview.innerHTML = marked.parse(markdownText);
+  }
+
+  input.addEventListener('input', updatePreview);
+  window.onload = updatePreview;
+</script>
+{% endblock %}
+

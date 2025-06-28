@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Register - Flask Blog{% endblock %}
+{% block content %}
+<h2>Register</h2>
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <div class="mb-3">{{ form.email.label }} {{ form.email(class="form-control") }} {% for e in form.email.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}</div>
+  <div class="mb-3">{{ form.username.label }} {{ form.username(class="form-control") }} {% for e in form.username.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}</div>
+  <div class="mb-3">{{ form.password.label }} {{ form.password(class="form-control") }} {% for e in form.password.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}</div>
+  <div class="mb-3">{{ form.confirm.label }} {{ form.confirm(class="form-control") }} {% for e in form.confirm.errors %}<small class="text-danger">{{ e }}</small>{% endfor %}</div>
+  <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+</form>
+{% endblock %}
+

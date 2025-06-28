@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Home - Flask Blog{% endblock %}
+
+{% block content %}
+<h1>All Posts</h1>
+{% for post in posts %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ post.title }}</h5>
+      <p class="card-text">By {{ post.author.username }}</p>
+      <a href="{{ url_for('post_detail', post_id=post.id) }}" class="btn btn-primary btn-sm">Read More</a>
+      {% if current_user.is_authenticated and post.author == current_user %}
+      <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST" class="d-inline ms-2" onsubmit="return confirm('Delete this post?');">
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+{% else %}
+  <p>No posts yet.</p>
+{% endfor %}
+{% endblock %}
+
